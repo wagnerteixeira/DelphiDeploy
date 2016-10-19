@@ -1,0 +1,7 @@
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Core\bin\Debug\Deploy.Core.dll
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Core\bin\Debug\Deploy.Core.pdb
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Core\bin\Debug\SharpConfig.dll
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Core\bin\Debug\SharpConfig.xml
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Core\obj\Debug\Deploy.Core.csprojResolveAssemblyReference.cache
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Core\obj\Debug\Deploy.Core.dll
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Core\obj\Debug\Deploy.Core.pdb

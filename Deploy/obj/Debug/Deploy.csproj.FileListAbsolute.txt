@@ -1,0 +1,9 @@
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy\bin\Debug\Deploy.exe.config
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy\bin\Debug\Deploy.exe
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy\bin\Debug\Deploy.pdb
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy\obj\Debug\Deploy.csprojResolveAssemblyReference.cache
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy\obj\Debug\Deploy.Form1.resources
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy\obj\Debug\Deploy.Properties.Resources.resources
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy\obj\Debug\Deploy.csproj.GenerateResource.Cache
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy\obj\Debug\Deploy.exe
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy\obj\Debug\Deploy.pdb

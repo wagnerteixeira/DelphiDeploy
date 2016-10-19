@@ -1,0 +1,312 @@
+program cartorio_notas;
+
+uses
+  ExceptionLog,
+  Forms,
+  uMensagens,
+  SysUtils,
+  Rotinas in 'ROTINAS.PAS',
+  Validac in 'VALIDAC.PAS',
+  Calcula in 'Calcula.pas' {FrCalcula},
+  Sobre in 'SOBRE.PAS' {FrSobre},
+  Usuario in 'usuario.PAS' {FrUsuario},
+  Calenda in 'CALENDA.PAS' {FrCalendario},
+  Main in 'MAIN.PAS' {FrBlocoNotas},
+  Abertura in 'ABERTURA.PAS' {FrAbertura},
+  Dados in 'Dados.pas' {ModuloDados: TDataModule},
+  ConfigBD in 'ConfigBD.pas' {FrConfigBD},
+  UFrmAssinaturaEtiqueta in 'UFrmAssinaturaEtiqueta.pas' {FrmAssinaturaEtiqueta},
+  cart0002 in 'cart0002.pas' {FrIndicadorPessoal},
+  cart0003 in 'cart0003.pas' {FrIndicadorReal},
+  cart0004 in 'cart0004.pas' {FrLivroRegistro},
+  Configr in 'configr.pas' {FrConfigImpressao},
+  infpesqpessoal in 'infpesqpessoal.pas' {FrInfPespPessoal},
+  infpesqimovel in 'infpesqimovel.pas' {FrInfPespImovel},
+  Input in 'Input.pas' {FrmInput},
+  Protect in 'Protect.pas' {FrSCProtect},
+  cart0012 in 'cart0012.pas' {FrCartorio},
+  Search in 'SEARCH.PAS',
+  cart0013 in 'cart0013.PAS' {FrModeloCertidao},
+  UFrRecepcaoTitulosNova in 'UFrRecepcaoTitulosNova.pas' {FrRecepcaoTitulosNova},
+  documentos in 'documentos.pas' {FrCadDocumentos},
+  Perfil in 'perfil.pas' {FrPerfil},
+  AcessoFuncao in 'AcessoFuncao.pas' {FrAcessoFuncao},
+  Funcao in 'funcao.PAS' {FrFuncao},
+  Param_Auditoria_Campo in 'Param_Auditoria_Campo.pas' {FrParam_Auditoria_Campo},
+  Param_Auditoria_Tabela in 'Param_Auditoria_Tabela.pas' {FrParam_Auditoria_Tabela},
+  Param_Auditoria_Trigger in 'Param_Auditoria_Trigger.pas' {FrParam_Auditoria_Trigger},
+  Param_Auditoria in 'Param_Auditoria.pas' {FrParam_Auditoria},
+  PesquisaLOG in 'PesquisaLOG.pas' {FrPesquisaLOG},
+  PesquisaLOGImpressao in 'PesquisaLOGImpressao.pas' {FrPesquisaLOGImpressao},
+  SelCampo_P in 'SelCampo_P.pas' {FrmSelCamposPessoal},
+  cart0017 in 'cart0017.PAS' {FrDocumentosEntregue},
+  cart0018 in 'cart0018.pas' {FrSelos},
+  cart0019 in 'cart0019.pas' {FrCancelamentoSelos},
+  cart0020LoteUsuario in 'cart0020LoteUsuario.pas' {FrMapaUtilizacaoSelosLoteUsuario},
+  cart0021 in 'cart0021.pas' {FrCondicao},
+  UFrmExecutaServico in 'UFrmExecutaServico.PAS' {FrmExecutaServico},
+  parame in 'parame.pas' {FrParametros},
+  relat08 in 'relat08.PAS' {FrImpDAE},
+  cart0023 in 'cart0023.pas' {FrLancarSelos},
+  relat09 in 'relat09.pas' {FrImpRecibo},
+  EditorSQL in 'EditorSQL.pas' {FrEditorSQL},
+  relat10 in 'relat10.pas' {FrImpCertidao},
+  relat12 in 'relat12.PAS' {FrRelBalancoAtos},
+  cart0026 in 'cart0026.pas' {FrFuncionarios},
+  integra_DAP in 'integra_DAP.pas' {FrComunicacaoDAP},
+  parme_sub_relat in 'parme_sub_relat.pas' {FrParam_Sub_Relat},
+  relat13 in 'relat13.PAS' {FrImpPreRecibo},
+  cart0027 in 'cart0027.PAS' {FrMovimentacaoPreRecibo},
+  TipoSelo in 'TipoSelo.PAS' {FrTipoSelo},
+  cart0029 in 'cart0029.pas' {FrTextoLivre},
+  selectextolivre in 'selectextolivre.pas' {FrSelecTextoLivre},
+  copiarindreal in 'copiarindreal.pas' {FrCopiarIndReal},
+  UFrmImportaApresentante in 'UFrmImportaApresentante.pas' {FrmImportaApresentante},
+  Profissao in 'Profissao.PAS' {FrProfissao},
+  CalculoAtos in 'CalculoAtos.pas' {FrCalculoAtos},
+  pesqidreal in 'pesqidreal.pas' {FrSelecaoIndReal},
+  cart0034 in 'cart0034.PAS' {FrAverbacaoLogradouro},
+  cart0038 in 'cart0038.PAS' {FrLivroRegistro_Impressao},
+  cart0041 in 'cart0041.pas' {FrModelosImpressao},
+  UFrmAtosServico in 'UFrmAtosServico.pas' {FrmAtosServico},
+  ExportaRelatorios in 'ExportaRelatorios.pas' {FrmExportaRelatorios},
+  ParametrosRelatorio in 'ParametrosRelatorio.pas' {FrmParametroRelatorio},
+  Componentes_Relat in 'Componentes_Relat.pas',
+  ConfiguraRelatorio in 'ConfiguraRelatorio.pas' {FrmConfiguraRelatorio},
+  ParametroRelatorioOrdem in 'ParametroRelatorioOrdem.pas' {FrmParamRelatorioOrdem},
+  ImportaParamRelatorio in 'ImportaParamRelatorio.pas' {FrmImportaParamRelatorio},
+  ParametroGeraRelatorio in 'ParametroGeraRelatorio.pas' {FrmParametroGeraRelatorio},
+  UsuarioRelatorio in 'UsuarioRelatorio.pas' {FrmUsuarioRelatorio},
+  cart0044 in 'cart0044.PAS' {FrSelPessoaCorrecao},
+  UFrServicoLivro in 'UFrServicoLivro.pas' {FrServicoLivro},
+  relat01 in 'relat01.pas' {FrImpLivro},
+  cart0006 in 'cart0006.pas' {FrRecepcaoRapida},
+  cart0025 in 'cart0025.PAS' {FrMovimentacaoCustodia},
+  uEdicaoTexto in 'uEdicaoTexto.pas' {frmEdicaoTexto},
+  cart0010 in 'cart0010.pas' {FrLivroCadastro},
+  cart0028 in 'cart0028.PAS' {FrAberturaFechamentoCaixa},
+  Unit_Visualizar in 'Unit_Visualizar.pas' {FrVisualizar},
+  selecindicreal in 'selecindicreal.pas' {FrSelIndReal},
+  relatorio_final in 'relatorio_final.pas' {FrVisualizaRelatorio},
+  md5 in 'md5.pas',
+  selecclausulas in 'selecclausulas.pas' {FrSelecClausulas},
+  cart0045 in 'cart0045.PAS' {FrClausulas},
+  cart0016 in 'cart0016.PAS' {FrRecepcaoServico},
+  cart0030 in 'cart0030.PAS' {FrRecepcaoServicoRapida},
+  cart0048 in 'cart0048.pas' {FrLancarSelosAM},
+  cart0049 in 'cart0049.pas' {FrLancarSelosAMDetalhe},
+  Exporta_DOI in 'Exporta_DOI.pas' {FrExporta_DOI},
+  DataSetToXMLToDataSet in 'DataSetToXMLToDataSet.pas',
+  Base64 in 'Base64.pas',
+  InformacoesServico in 'InformacoesServico.pas' {FrmInformacoesServico},
+  AtualizaVersao in 'AtualizaVersao.pas' {FrmAtualizaVersao},
+  cart0001 in 'cart0001.PAS' {FrSelecaoPessoa},
+  UFrDOI in 'UFrDOI.PAS' {FrDOI},
+  UFrCadTipoLivro in 'UFrCadTipoLivro.pas' {FrCadTipoLivro},
+  UFrServicoTransacao in 'UFrServicoTransacao.pas' {FrServicoTransacao},
+  Cart0000 in 'CART0000.PAS' {FrPrincipal},
+  cart0022 in 'cart0022.PAS' {FrRecibo},
+  UfrmIndicadorPessoalDocumento in 'UfrmIndicadorPessoalDocumento.pas' {FrIndicadorPessoalDocumento},
+  UFrCadConjuge in 'UFrCadConjuge.pas' {FrCadConjuge},
+  cadServico in 'cadServico.pas' {FrCadServico},
+  AplicaRegraTexto in 'AplicaRegraTexto.pas',
+  Atos in 'Atos.pas' {FrmAtos},
+  CadExpressaoAto in 'CadExpressaoAto.pas' {FrmCadExpressaoAto},
+  CadQualificacaoPessoal in 'CadQualificacaoPessoal.pas' {FrmCadQualificacaoPessoal},
+  CadQualificacaoReal in 'CadQualificacaoReal.pas' {FrmCadQualificacaoReal},
+  CadTransacao in 'CadTransacao.pas' {FrmCadTransacao},
+  Condicoes in 'Condicoes.pas' {FrmCondicoes},
+  ExportaQualificacao in 'ExportaQualificacao.pas' {FrmExportaQualificacao},
+  ImportaObjeto in 'ImportaObjeto.pas' {FrmImportaObjeto},
+  ItemAto in 'ItemAto.pas' {FrmItemAto},
+  ItemQualificacaoPessoal in 'ItemQualificacaoPessoal.pas' {FrmItemQualificacaoPessoal},
+  ItemQualificacaoReal in 'ItemQualificacaoReal.pas' {FrmItemQualificacaoReal},
+  Parametro in 'Parametro.pas' {FrmParametro},
+  SelecionaFuncionario in 'SelecionaFuncionario.pas' {FrmSelecaoFuncionario},
+  VinculoExpressao in 'VinculoExpressao.pas' {FrmVinculoExpressao},
+  selecparteenvolvidas in 'selecparteenvolvidas.pas' {FrSelPartesEnvolvidas},
+  CalculaPercentual in 'CalculaPercentual.pas' {FrmCalculaPercentual},
+  UFrmPreviewImpressaoCertidao in 'UFrmPreviewImpressaoCertidao.pas' {FrmPreviewImpressaoCertidao},
+  UFrmImpressaoCertidao in 'UFrmImpressaoCertidao.pas' {FrmImpressaoCertidao},
+  TipoDocumento in 'TipoDocumento.pas' {FrmTipoDocumento},
+  CadExpressao in 'CadExpressao.pas' {FrmCadExpressao},
+  Calculo_recepcao in 'Calculo_recepcao.pas' {FrItemMovimentacaoRecibo},
+  UFrmPreviewImpressao in 'UFrmPreviewImpressao.pas' {FrmPreviewImpressao},
+  UFrmImpressao in 'uFrmImpressao.pas' {FrmImpressao},
+  PermissaoAcesso in 'PermissaoAcesso.pas' {FrmPermissaoAcesso},
+  GeradorRelatorio in 'GeradorRelatorio.pas',
+  UFrmTransfereServico in 'UFrmTransfereServico.pas' {FrmTransfereServico},
+  ModeloTela in 'ModeloTela.pas' {FrmModeloTela},
+  TrocaUsuario in 'TrocaUsuario.pas' {FrmTrocaUsuario},
+  ImpressaoTermo in 'ImpressaoTermo.pas' {FrmImpressaoTermo},
+  SinalPublico in 'SinalPublico.pas' {FrmSinalPublico},
+  CadCartorios in 'CadCartorios.pas' {FrmCadCartorios},
+  FuncionarioCartorio in 'FuncionarioCartorio.pas' {FrmFuncionarioCartorio},
+  RelSinalPublico in 'RelSinalPublico.pas' {FrmRelSinalPublico},
+  ModeloImpSinal in 'ModeloImpSinal.pas' {FrmModeloImpSinal},
+  SubstituirCondicao in 'SubstituirCondicao.pas' {FrmSubstituirCondicao},
+  CadBairros in 'CadBairros.pas' {FrmCadBairros},
+  MotivoDesconto in 'MotivoDesconto.pas' {FrmMotivoDesconto},
+  Distritos in 'Distritos.pas' {FrmDistritos},
+  Edificios in 'Edificios.pas' {FrmEdificios},
+  pesqindpessoal in 'pesqindpessoal.pas' {FrPesquisaIndPessoal},
+  CapturaCam in 'CapturaCam.pas' {fCaptura},
+  AviCaptura in 'avicaptura.pas',
+  Camera in 'camera.pas',
+  RelMovimentacao in 'RelMovimentacao.pas' {FrmRelMovimentacao},
+  SelecaoParteEnvolvida in 'SelecaoParteEnvolvida.pas' {FrmSelecaoParteEnvolvida},
+  InfoCasado in 'InfoCasado.pas' {FrmInfoCasado},
+  Oficios in 'Oficios.pas' {FrmOficios},
+  CadOrgaos in 'CadOrgaos.pas' {FrmCadOrgaos},
+  ModeloOficio in 'ModeloOficio.pas' {FrmModeloOficio},
+  RelOficio in 'RelOficio.pas' {FrmRelOficio},
+  ExportaDAPMG in 'ExportaDAPMG.pas' {FrmExportaDAPMG},
+  VincularExpressoes in 'VincularExpressoes.pas' {FrmVincularExpressoes},
+  cartsysservice in 'cartsysservice.pas',
+  ModeloTelaManutencao in 'ModeloTelaManutencao.pas' {FrmModeloTelaManutencao},
+  MovimentacaoCaixa in 'MovimentacaoCaixa.pas' {FrmMovimentacaoCaixa},
+  MovimentacaoCaixaDetalhe in 'MovimentacaoCaixaDetalhe.pas' {FrmMovimentacaoCaixaDetalhe},
+  ImpressaoReciboCaixa in 'ImpressaoReciboCaixa.pas' {FrmImpressaoReciboCaixa},
+  Transacao in 'Transacao.PAS' {FrCadTransacao},
+  MotivoCancelamentoRecibo in 'MotivoCancelamentoRecibo.pas' {FrmMotivoCancelamentoRecibo},
+  ImpressaoSinalPublico in 'ImpressaoSinalPublico.pas' {FrmImpressaoSinalPublico},
+  recepcao_titulos in 'recepcao_titulos.pas' {FrRecepcao},
+  recepcao_titulos_1 in 'recepcao_titulos_1.pas' {FrRecepcaoTitulos_1},
+  Unit_Impressao in 'Unit_impressao.pas' {FrPreferenciaImpressao},
+  ExportaCENSEC in 'ExportaCENSEC.pas' {FrmExportaCENSEC},
+  cidades in 'cidades.pas' {FrCidade},
+  uLivroProvimento in 'uLivroProvimento.pas' {FrLivroProvimento},
+  relat23 in 'relat23.PAS' {FrImpLivros},
+  uDespesas in 'uDespesas.PAS' {FrCadDespesas},
+  uTipoDespesa in 'uTipoDespesa.PAS' {FrCadTipoDespesa},
+  cart0050 in 'cart0050.PAS' {FrIndicadorPessoalOrdem},
+  ImportarFeriados in 'ImportarFeriados.pas' {FrImportarFeriados},
+  cart0051 in 'cart0051.PAS' {FrSelecaoAto},
+  cart0052 in 'cart0052.pas' {FrmAtosCensec},
+  cart0053 in 'cart0053.pas' {FrDetalhamentoCensec},
+  uGrupoDespesa in 'uGrupoDespesa.pas' {frmGrupoDespesa},
+  SelecaoImpressora in 'SelecaoImpressora.pas' {FrSelecaoImpressora},
+  CategoriaDigitalizacao in 'CategoriaDigitalizacao.pas' {FrmCategoriaDigitalizacao},
+  WPTAddict in 'WPTAddict.pas',
+  Digitalizacao in 'Digitalizacao.pas' {FormDigitalizacao},
+  cart0054 in 'cart0054.pas' {FrLivrosVinculados},
+  Cart0055 in 'Cart0055.pas' {FrmTipoPapelCustomizado},
+  cart0056 in 'cart0056.pas' {FrmTrasacaoDOI},
+  cart0057 in 'cart0057.PAS' {FrSelecaoConjuge},
+  uAviso in 'uAviso.pas' {FrmAviso},
+  uRelatCNJ in 'uRelatCNJ.PAS' {FrRelCNJ},
+  param_relat_selo in 'param_relat_selo.pas' {FrParam_Relat_Selo},
+  importa_selos in 'importa_selos.pas' {FrImporta_Selos},
+  cart0067 in 'cart0067.pas' {FrLancarSelosGO},
+  exporta_selos in 'exporta_selos.pas' {FrExporta_Selos},
+  cart0058 in 'cart0058.pas' {FrmAtosEtiqueta},
+  UCalculoAtosNovo in 'UCalculoAtosNovo.pas' {frmCalculoAtosNovo},
+  InformacoesAdicionais in 'InformacoesAdicionais.pas' {FrInformacoesAdicionais},
+  SeloFiscalizacao in 'SeloFiscalizacao.pas',
+  param_relat_cnib in 'param_relat_cnib.pas' {FrParam_Relat_Cnib},
+  Cart0068 in 'Cart0068.pas' {FrmPesquisaCNIB},
+  uResultadoPesquisaCNIB in 'uResultadoPesquisaCNIB.pas' {FrmResultadoPesquisaCNIB},
+  Cart0069 in 'Cart0069.pas' {FrmImportarInformacoesCNIB},
+  PesquisaCNIBWebService_TLB in 'PesquisaCNIBWebService_TLB.pas',
+  uDBClass in 'uDBClass.pas',
+  uUtil in 'uUtil.pas',
+  uCallbacks in 'uCallbacks.pas',
+  AtualizacaoAuditoria in 'AtualizacaoAuditoria.pas',
+  VisualizaAuditoriaSistema in 'VisualizaAuditoriaSistema.pas' {FrVisualizaAuditoriaSistema},
+  VisualizaTextoAuditoria in 'VisualizaTextoAuditoria.pas' {FrVisualizaTextoAuditoria},
+  Relatorios in 'Relatorios.pas' {ModuloRelatorios: TDataModule},
+  ConfiguraBancoAuditoria in 'ConfiguraBancoAuditoria.pas' {FrConfiguraBancoAuditoria},
+  DadosPartesEnvolvidas in 'DadosPartesEnvolvidas.pas' {FrDadosPartesEnvolvidas},
+  AtualizacaoSistema in 'AtualizacaoSistema.pas',
+  AtualizacaoVersao in 'AtualizacaoVersao.pas' {FrAtualizacaoVersao},
+  InconsistenciaAtualizacao in 'InconsistenciaAtualizacao.pas' {FrInconsistenciaAtualizacao},
+  Caminho in 'Caminho.pas' {FrCaminho},
+  cart0070 in 'cart0070.pas' {FrmRecibosIndicador},
+  uDivisaoLoteSelo in 'uDivisaoLoteSelo.pas' {FrDivisaoLoteSelo},
+  uSelosUsuario in 'uSelosUsuario.pas' {FrSelosUsuario},
+  cart0020 in 'cart0020.pas' {FrMapaUtilizacaoSelos},
+  relat11LoteUsuario in 'relat11LoteUsuario.PAS' {FrRelUtilizacaoSelosLoteUsuario},
+  relat11 in 'relat11.PAS' {FrRelUtilizacaoSelos},
+  uDetalhamentoTipoSeloUsuario in 'uDetalhamentoTipoSeloUsuario.pas' {FrDetalhamentoTipoSeloUsuario},
+  TermoCorrecaoSelo in 'TermoCorrecaoSelo.pas' {FrTermoCorrecaoSelo},
+  ProgressoNomeFonetico in 'ProgressoNomeFonetico.pas' {FrProgressoNomeFonetico},
+  Cartsys_LibSelo_TLB in '..\..\lib_d7\Cartsys\branches\SPRINT_RI_BRANCH\Fontes\Imports\Cartsys_LibSelo_TLB.pas',
+  SubstituicaoRecibo in 'SubstituicaoRecibo.pas' {FrmSubstituicaoRecibo},
+  SubstituicaoSelo in 'SubstituicaoSelo.pas' {FrmSubstituicaoSelo},
+  uExibeEditor in 'uExibeEditor.pas' {frmExibeEditor},
+  uConfirmaPaginas in 'uConfirmaPaginas.pas' {FrmConfirmaPaginas},
+  SelecionarParteEnvolvida in 'SelecionarParteEnvolvida.PAS' {FrSelecionarParteEnvolvida},
+  edicaoimpressao in 'edicaoimpressao.pas' {FrmEdicaoImpressao},
+  Clientes in 'Clientes.pas' {FrCliente},
+  CustodiaTransacao in 'CustodiaTransacao.pas' {FrCustodiaTransacao},
+  CustodiaTransacaoManutencao in 'CustodiaTransacaoManutencao.pas' {FrCustodiaTransacaoManutencao},
+  NotificacaoSistema in 'NotificacaoSistema.pas',
+  SelecaoUsuarioNotificacao in 'SelecaoUsuarioNotificacao.pas' {FrSelecaoUsuarioNotificacao},
+  VisualizarDetalheMensagem in 'VisualizarDetalheMensagem.pas' {FrVisualizarDetalheMensagem},
+  Unit_EscolheFuncionario in 'Unit_EscolheFuncionario.pas' {FrEscolheFuncionario},
+  Cart0071 in 'cart0071.pas' {FrAnotacoesRecepcao},
+  SelecionaIndicadorPessoal in 'SelecionaIndicadorPessoal.pas' {FrSelecionaIndicadorPessoal},
+  uInformaProtocolo in 'uInformaProtocolo.pas' {frmInformaProtocolo},
+  uDuplicaModelo in 'uDuplicaModelo.pas' {FrmDuplicaModelo},
+  AlertaDoiNaoEnviadaPeriodoAnterior in 'AlertaDoiNaoEnviadaPeriodoAnterior.pas' {FrmAlertaDoiNaoEnviadaPeriodoAnterior},
+  ConsultaWorkflow in 'ConsultaWorkflow.pas' {FrmConsultaWorkflow},
+  superdate in 'superdate.pas',
+  superobject in 'superobject.pas',
+  supertypes in 'supertypes.pas';
+
+//  CadOrgaos in 'CadOrgaos.pas' {FrmCadOrgaos};
+var
+  SR: TSearchRec;
+  I : integer;
+
+{$R *.RES}
+
+begin
+  if not CriaCaminhoAtualiza then
+  begin
+    TMensagem.Erro('Não é possível inicializar o sistema sem as configurações do atualiza.');
+    Application.Terminate
+  end;
+  if ((ParamCount = 1) and (ParamStr(1) = 'CARTSYS')) Then
+  begin
+    Application.Title := 'CartSys - Controle de Cartório de Notas';
+    Application.CreateForm(TFrPrincipal, FrPrincipal);
+  Application.Initialize;
+    Application.Run;
+  end
+  else
+  begin
+    Try
+      TMensagem.Erro('Execute o Cartsys Notas pelo atalho na sua Área de Trabalho');
+      
+      I := FindFirst(ExtractFilePath(Application.ExeName) + 'Executa.exe', {$WARNINGS OFF}faArchive{$WARNINGS ON}, SR);
+      if (I = 0) then
+      begin
+        if {$WARNINGS OFF}AtualizaExecuta(SR.FindData) {$WARNINGS ON}Then
+          Application.Terminate
+        else
+        begin
+          TMensagem.Erro('Não foi possível configurar corretamente o atalho do Cartsys no seu computador, entre em contato com o Suporte da Cartsys');
+          Application.Title := 'CartSys - Controle de Cartório de Notas';
+          Application.CreateForm(TFrPrincipal, FrPrincipal);
+          Application.Initialize;
+          Application.Run;
+        End;
+      End
+      else
+      begin
+        TMensagem.Erro('Não foi possível configurar corretamente o atalho do Cartsys no seu computador, entre em contato com o Suporte da Cartsys');
+        Application.Title := 'CartSys - Controle de Cartório de Notas';
+        Application.CreateForm(TFrPrincipal, FrPrincipal);
+        Application.Initialize;
+        Application.Run;
+      end;
+    except
+      TMensagem.Erro('Não foi possível configurar corretamente o atalho do Cartsys no seu computador, entre em contato com o Suporte da Cartsys');
+      Application.Title := 'CartSys - Controle de Cartório de Notas';
+      Application.CreateForm(TFrPrincipal, FrPrincipal);
+      Application.Initialize;
+      Application.Run;
+    end;
+  end;
+end.

@@ -1,0 +1,10 @@
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\bin\Debug\Deploy.Console.exe.config
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\bin\Debug\Deploy.Console.exe
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\bin\Debug\Deploy.Console.pdb
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\bin\Debug\Deploy.Core.dll
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\bin\Debug\SharpConfig.dll
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\bin\Debug\Deploy.Core.pdb
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\bin\Debug\SharpConfig.xml
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\obj\Debug\Deploy.Console.csprojResolveAssemblyReference.cache
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\obj\Debug\Deploy.Console.exe
+C:\Users\wagne\Documents\Visual Studio 2015\Projects\Deploy\Deploy.Console\obj\Debug\Deploy.Console.pdb
